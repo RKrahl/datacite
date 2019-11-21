@@ -52,6 +52,7 @@ setup(
     url = "https://it-ed-git.basisit.de/icat/datacite",
     license = "Internal-Use",
     requires = ["requests"],
+    scripts = ["scripts/get-doi-metadata.py"],
     classifiers = [
         "Development Status :: 1 - Planning",
         "Intended Audience :: Information Technology",
