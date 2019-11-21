@@ -1,0 +1,3 @@
+include .version
+include MANIFEST.in
+include README.rst
