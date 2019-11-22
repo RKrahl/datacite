@@ -3,20 +3,16 @@
 import argparse
 import base64
 import requests
-
-url = 'https://api.datacite.org/dois/'
+import datacite.config
 
 argparser = argparse.ArgumentParser(description="Query a DOI")
-argparser.add_argument('-w', '--url',
-                       help="URL of the dois API endpoint", default=url)
+datacite.config.add_cli_arguments(argparser, login=False)
 argparser.add_argument('doi', help="the DOI to search")
 args = argparser.parse_args()
-
-if not args.url.endswith('/'):
-    args.url += '/'
+config = datacite.config.get_config(args)
 
 headers = {'accept': 'application/vnd.api+json'}
-response = requests.get(args.url+args.doi, headers=headers)
+response = requests.get(config.url+args.doi, headers=headers)
 if response.status_code != requests.codes.ok:
     response.raise_for_status()
 doi_data = response.json()
