@@ -91,9 +91,9 @@ setup(
     author_email = "rolf.krahl@helmholtz-berlin.de",
     url = "https://it-ed-git.basisit.de/jsi/datacite",
     license = "Internal-Use",
-    requires = ["requests"],
+    requires = ["lxml", "requests"],
     packages = ["datacite"],
-    scripts = ["scripts/get-doi-metadata.py"],
+    scripts = ["scripts/create-doi.py", "scripts/get-doi-metadata.py"],
     classifiers = [
         "Development Status :: 1 - Planning",
         "Intended Audience :: Information Technology",

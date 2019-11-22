@@ -17,6 +17,7 @@ Python:
 
 Required library packages:
 
++ `lxml`_
 + `Requests`_
 
 Optional library packages:
@@ -32,5 +33,6 @@ Optional library packages:
 
 .. _DataCite: https://datacite.org/
 .. _DataCite REST API: https://support.datacite.org/docs/api
+.. _lxml: https://lxml.de/
 .. _Requests: http://python-requests.org/
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm/

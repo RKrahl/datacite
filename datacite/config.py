@@ -6,6 +6,12 @@ import configparser
 import getpass
 from pathlib import Path
 
+xml_ns = 'http://datacite.org/schema/kernel-4'
+"""The URL to use for the XML name space."""
+xml_schema = 'http://schema.datacite.org/meta/kernel-4.3/metadata.xsd'
+"""The URL of the DataCite metadata XML Schema Definition."""
+
+
 cfgdirs = [ Path("/etc/datacite"), 
             Path.home() / ".config" / "datacite",
             Path(""), ]
