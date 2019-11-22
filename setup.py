@@ -27,8 +27,42 @@ except (ImportError, LookupError):
 
 doclines = __doc__.strip().split("\n")
 
+
+class init_py(distutils.core.Command):
+
+    description = "generate the main __init__.py file"
+    user_options = []
+    init_template = '''"""%s"""
+
+__version__ = "%s"
+'''
+
+    def initialize_options(self):
+        self.package_dir = None
+
+    def finalize_options(self):
+        self.package_dir = {}
+        if self.distribution.package_dir:
+            for name, path in self.distribution.package_dir.items():
+                self.package_dir[name] = convert_path(path)
+
+    def run(self):
+        try:
+            pkgname = self.distribution.packages[0]
+        except IndexError:
+            distutils.log.warn("warning: no package defined")
+        else:
+            pkgdir = Path(self.package_dir.get(pkgname, pkgname))
+            ver = self.distribution.get_version()
+            if not pkgdir.is_dir():
+                pkgdir.mkdir()
+            with (pkgdir / "__init__.py").open("wt") as f:
+                print(self.init_template % (__doc__, ver), file=f)
+
+
 class sdist(distutils.command.sdist.sdist):
     def run(self):
+        self.run_command('init_py')
         super().run()
         subst = {
             "version": self.distribution.get_version(),
@@ -42,6 +76,12 @@ class sdist(distutils.command.sdist.sdist):
                     outf.write(string.Template(inf.read()).substitute(subst))
 
 
+class build_py(distutils.command.build_py.build_py):
+    def run(self):
+        self.run_command('init_py')
+        super().run()
+
+
 setup(
     name = "datacite",
     version = version,
@@ -52,6 +92,7 @@ setup(
     url = "https://it-ed-git.basisit.de/jsi/datacite",
     license = "Internal-Use",
     requires = ["requests"],
+    packages = ["datacite"],
     scripts = ["scripts/get-doi-metadata.py"],
     classifiers = [
         "Development Status :: 1 - Planning",
@@ -64,6 +105,6 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
     ],
-    cmdclass = {'sdist': sdist},
+    cmdclass = {'build_py': build_py, 'sdist': sdist, 'init_py': init_py},
 )
 
