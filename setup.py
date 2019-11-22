@@ -49,7 +49,7 @@ setup(
     long_description = "\n".join(doclines[2:]),
     author = "Rolf Krahl",
     author_email = "rolf.krahl@helmholtz-berlin.de",
-    url = "https://it-ed-git.basisit.de/icat/datacite",
+    url = "https://it-ed-git.basisit.de/jsi/datacite",
     license = "Internal-Use",
     requires = ["requests"],
     scripts = ["scripts/get-doi-metadata.py"],
