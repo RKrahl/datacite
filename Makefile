@@ -14,6 +14,7 @@ clean:
 	rm -rf build
 
 distclean: clean
+	rm -rf datacite/__pycache__
 	rm -f MANIFEST .version
 	rm -f datacite/__init__.py
 	rm -rf dist
