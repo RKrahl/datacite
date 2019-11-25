@@ -93,7 +93,8 @@ setup(
     license = "Internal-Use",
     requires = ["lxml", "requests"],
     packages = ["datacite"],
-    scripts = ["scripts/create-doi.py", "scripts/get-doi-metadata.py"],
+    scripts = ["scripts/create-doi.py", "scripts/get-doi-metadata.py",
+               "scripts/update-doi.py"],
     classifiers = [
         "Development Status :: 1 - Planning",
         "Intended Audience :: Information Technology",
