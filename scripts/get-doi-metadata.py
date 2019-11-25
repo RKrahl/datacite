@@ -12,7 +12,7 @@ args = argparser.parse_args()
 config = datacite.config.get_config(args)
 
 headers = {'accept': 'application/vnd.api+json'}
-response = requests.get(config.url+args.doi, headers=headers)
+response = requests.get(config.apiurl+args.doi, headers=headers)
 if response.status_code != requests.codes.ok:
     response.raise_for_status()
 doi_data = response.json()

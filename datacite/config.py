@@ -43,7 +43,7 @@ def add_cli_arguments(argparser, *, login=True):
     argparser.add_argument('-c', '--configfile', help="config file")
     argparser.add_argument('-s', '--configsection',
                            help="section in the config file", metavar="SECTION")
-    argparser.add_argument('-w', '--url',
+    argparser.add_argument('-w', '--apiurl',
                            help="URL of the dois API endpoint")
     if login:
         argparser.add_argument('-u', '--username', help="username")
@@ -51,9 +51,9 @@ def add_cli_arguments(argparser, *, login=True):
 
 def get_config(args):
     if 'username' in args:
-        opts = ['configfile', 'configsection', 'url', 'username', 'password']
+        opts = ['configfile', 'configsection', 'apiurl', 'username', 'password']
     else:
-        opts = ['configfile', 'configsection', 'url']
+        opts = ['configfile', 'configsection', 'apiurl']
     config = Configuration(opts)
     if args.configsection:
         configfile = configparser.ConfigParser()
@@ -85,6 +85,6 @@ def get_config(args):
             setattr(config, opt, getpass.getpass())
             continue
         raise ConfigError("Config option '%s' not given." % opt)
-    if not config.url.endswith('/'):
-        config.url += '/'
+    if not config.apiurl.endswith('/'):
+        config.apiurl += '/'
     return config
