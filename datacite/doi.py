@@ -17,10 +17,7 @@ class Doi:
             'data': {
                 'type': 'dois',
                 'attributes': {
-                    'event': None,
                     'doi': self.doi,
-                    'url': None,
-                    'xml': None,
                 },
             },
         }
@@ -40,7 +37,13 @@ class Doi:
     def url(self, value):
         if self._data is None:
             self._init_data()
-        self._data['data']['attributes']['url'] = value
+        if value:
+            self._data['data']['attributes']['url'] = value
+        else:
+            try:
+                del self._data['data']['attributes']['url']
+            except KeyError:
+                pass
 
     @property
     def metadata(self):
@@ -52,15 +55,21 @@ class Doi:
 
     @metadata.setter
     def metadata(self, xml):
-        if hasattr(xml, "docinfo"):
-            xml = etree.tostring(xml,
-                                 encoding='UTF-8',
-                                 xml_declaration=True,
-                                 pretty_print=True)
         if self._data is None:
             self._init_data()
-        xml_attr = base64.b64encode(xml).decode('ascii')
-        self._data['data']['attributes']['xml'] = xml_attr
+        if xml:
+            if hasattr(xml, "docinfo"):
+                xml = etree.tostring(xml,
+                                     encoding='UTF-8',
+                                     xml_declaration=True,
+                                     pretty_print=True)
+            xml_attr = base64.b64encode(xml).decode('ascii')
+            self._data['data']['attributes']['xml'] = xml_attr
+        else:
+            try:
+                del self._data['data']['attributes']['xml']
+            except KeyError:
+                pass
 
     def fetch(self, config):
         headers = {'accept': 'application/vnd.api+json'}
