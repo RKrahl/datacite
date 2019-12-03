@@ -27,6 +27,12 @@ class Doi:
         return self._doi
 
     @property
+    def attributes(self):
+        if self._data is None:
+            self._init_data()
+        return self._data['data']['attributes']
+
+    @property
     def url(self):
         try:
             return self._data['data']['attributes']['url']
