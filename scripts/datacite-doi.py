@@ -2,6 +2,7 @@
 
 import argparse
 from pathlib import Path
+import pprint
 from lxml import etree
 import datacite.config
 from datacite.doi import Doi
@@ -24,9 +25,19 @@ def get_metadata(args):
     config = datacite.config.get_config(args, login=False)
     doi = Doi(args.doi)
     doi.fetch(config)
-    print(doi.metadata)
+    if args.show == 'metadata_xml':
+        print(doi.metadata)
+    elif args.show == 'attributes':
+        pprint.pprint(doi.attributes)
+    else:
+        raise RuntimeError("Internal error: invalid value '%s' for args.show"
+                           % args.show)
 
 get_metadata_parser = subparsers.add_parser('get', help="Query a DOI")
+get_metadata_parser.add_argument('--show',
+                                 help="select the kind of information to show",
+                                 choices=['metadata_xml', 'attributes'],
+                                 default='metadata_xml')
 get_metadata_parser.add_argument('doi', help="the DOI to search")
 get_metadata_parser.set_defaults(func=get_metadata)
 
