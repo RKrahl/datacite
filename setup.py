@@ -95,7 +95,7 @@ setup(
     packages = ["datacite"],
     scripts = ["scripts/datacite-doi.py"],
     classifiers = [
-        "Development Status :: 1 - Planning",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Information Technology",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
