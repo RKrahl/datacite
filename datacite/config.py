@@ -49,8 +49,8 @@ def add_cli_arguments(argparser, *, login=True):
         argparser.add_argument('-u', '--username', help="username")
         argparser.add_argument('-p', '--password', help="password")
 
-def get_config(args):
-    if 'username' in args:
+def get_config(args, *, login=True):
+    if login and 'username' in args:
         opts = ['configfile', 'configsection', 'apiurl', 'username', 'password']
     else:
         opts = ['configfile', 'configsection', 'apiurl']
