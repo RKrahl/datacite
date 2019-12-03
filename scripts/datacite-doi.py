@@ -62,18 +62,25 @@ create_parser.set_defaults(func=create_doi)
 def update_doi(args):
     config = datacite.config.get_config(args)
     doi = Doi(args.doi)
-    doi.fetch(config)
-    doi.url = args.url
-    doi.metadata = read_datacite_xml(args.metadata)
-    doi.update(config)
+    need_update = False
+    if args.url:
+        doi.url = args.url
+        need_update = True
+    if args.metadata:
+        doi.metadata = read_datacite_xml(args.metadata)
+        need_update = True
+    if need_update:
+        doi.update(config)
+    else:
+        print("Nothing to do")
 
 update_parser = subparsers.add_parser('update', help="Update a DOI")
-update_parser.add_argument('doi', help="the DOI to create")
-update_parser.add_argument('url', help="URL of the landing page")
-update_parser.add_argument('metadata',
+update_parser.add_argument('--url', help="URL of the landing page")
+update_parser.add_argument('--metadata',
                            help="XML file with DOI metadata",
                            metavar="metadata.xml",
                            type=Path)
+update_parser.add_argument('doi', help="the DOI to create")
 update_parser.set_defaults(func=update_doi)
 
 
