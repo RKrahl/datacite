@@ -1,12 +1,16 @@
 #! python
 
 import argparse
+import logging
 from pathlib import Path
 import pprint
 import yaml
 import datacite.config
 from datacite.doi import Doi
 import datacite.xml
+
+logging.basicConfig(level=logging.DEBUG, format="%(levelname)s: %(message)s")
+log = logging.getLogger(__name__)
 
 argparser = argparse.ArgumentParser()
 datacite.config.add_cli_arguments(argparser)
@@ -38,7 +42,9 @@ def create_doi(args):
     config = datacite.config.get_config(args)
     doi = Doi(args.doi)
     doi.url = args.url
-    doi.metadata = datacite.xml.XML(args.metadata)
+    metadata = datacite.xml.XML(args.metadata)
+    doi.metadata = metadata
+    log.info("Mint %s for %s", doi.doi, metadata.title)
     doi.create(config)
 
 create_parser = subparsers.add_parser('create', help="Mint a DOI")
@@ -58,7 +64,9 @@ def bulk_create_doi(args):
     for entry in data:
         doi = Doi(entry['doi'])
         doi.url = entry['url']
-        doi.metadata = datacite.xml.XML(Path(entry['metadata']))
+        metadata = datacite.xml.XML(Path(entry['metadata']))
+        doi.metadata = metadata
+        log.info("Mint %s for %s", doi.doi, metadata.title)
         doi.create(config)
 
 bulk_create_parser = subparsers.add_parser('bulk-create',
@@ -81,9 +89,10 @@ def update_doi(args):
         doi.metadata = datacite.xml.XML(args.metadata)
         need_update = True
     if need_update:
+        log.info("Update %s", doi.doi)
         doi.update(config)
     else:
-        print("Nothing to do")
+        log.info("Nothing to do")
 
 update_parser = subparsers.add_parser('update', help="Update a DOI")
 update_parser.add_argument('--url', help="URL of the landing page")
