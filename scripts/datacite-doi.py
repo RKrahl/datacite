@@ -3,23 +3,14 @@
 import argparse
 from pathlib import Path
 import pprint
-from lxml import etree
 import yaml
 import datacite.config
 from datacite.doi import Doi
+import datacite.xml
 
 argparser = argparse.ArgumentParser()
 datacite.config.add_cli_arguments(argparser)
 subparsers = argparser.add_subparsers(title='subcommands', dest='subcmd')
-
-
-def read_datacite_xml(path):
-    with path.open('rb') as f:
-        metadata = etree.parse(f)
-    schema = etree.XMLSchema(etree.parse(datacite.config.xml_schema))
-    if not schema.validate(metadata):
-        raise RuntimeError("Invalid metadata in %s." % args.metadata)
-    return metadata
 
 
 def get_metadata(args):
@@ -47,7 +38,7 @@ def create_doi(args):
     config = datacite.config.get_config(args)
     doi = Doi(args.doi)
     doi.url = args.url
-    doi.metadata = read_datacite_xml(args.metadata)
+    doi.metadata = datacite.xml.XML(args.metadata)
     doi.create(config)
 
 create_parser = subparsers.add_parser('create', help="Mint a DOI")
@@ -67,7 +58,7 @@ def builk_create_doi(args):
     for entry in data:
         doi = Doi(entry['doi'])
         doi.url = entry['url']
-        doi.metadata = read_datacite_xml(Path(entry['metadata']))
+        doi.metadata = datacite.xml.XML(Path(entry['metadata']))
         doi.create(config)
 
 builk_create_parser = subparsers.add_parser('bulk-create',
@@ -87,7 +78,7 @@ def update_doi(args):
         doi.url = args.url
         need_update = True
     if args.metadata:
-        doi.metadata = read_datacite_xml(args.metadata)
+        doi.metadata = datacite.xml.XML(args.metadata)
         need_update = True
     if need_update:
         doi.update(config)

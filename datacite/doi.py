@@ -3,7 +3,6 @@
 
 import base64
 import json
-from lxml import etree
 import requests
 
 class Doi:
@@ -54,23 +53,18 @@ class Doi:
     @property
     def metadata(self):
         try:
-            xml_attr = self._data['data']['attributes']['xml']
+            encoded_xml = self._data['data']['attributes']['xml']
         except (TypeError, KeyError):
             return None
-        return base64.b64decode(xml_attr, validate=True).decode('utf8')
+        return base64.b64decode(encoded_xml, validate=True).decode('utf8')
 
     @metadata.setter
     def metadata(self, xml):
         if self._data is None:
             self._init_data()
         if xml:
-            if hasattr(xml, "docinfo"):
-                xml = etree.tostring(xml,
-                                     encoding='UTF-8',
-                                     xml_declaration=True,
-                                     pretty_print=True)
-            xml_attr = base64.b64encode(xml).decode('ascii')
-            self._data['data']['attributes']['xml'] = xml_attr
+            encoded_xml = base64.b64encode(bytes(xml)).decode('ascii')
+            self._data['data']['attributes']['xml'] = encoded_xml
         else:
             try:
                 del self._data['data']['attributes']['xml']
