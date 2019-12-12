@@ -43,6 +43,7 @@ def create_doi(args):
     doi = Doi(args.doi)
     doi.url = args.url
     metadata = datacite.xml.XML(args.metadata)
+    metadata.doi = doi.doi
     doi.metadata = metadata
     log.info("Mint %s for %s", doi.doi, metadata.title)
     doi.create(config)
@@ -70,6 +71,7 @@ def bulk_create_doi(args):
         doi = Doi(entry['doi'])
         doi.url = entry['url']
         metadata = datacite.xml.XML(Path(entry['metadata']))
+        metadata.doi = doi.doi
         doi.metadata = metadata
         log.info("Mint %s for %s", doi.doi, metadata.title)
         if not args.dry_run:
@@ -96,7 +98,9 @@ def update_doi(args):
         doi.url = args.url
         need_update = True
     if args.metadata:
-        doi.metadata = datacite.xml.XML(args.metadata)
+        metadata = datacite.xml.XML(args.metadata)
+        metadata.doi = doi.doi
+        doi.metadata = metadata
         need_update = True
     if need_update:
         log.info("Update %s", doi.doi)
