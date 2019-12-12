@@ -51,7 +51,7 @@ create_parser.add_argument('metadata',
 create_parser.set_defaults(func=create_doi)
 
 
-def builk_create_doi(args):
+def bulk_create_doi(args):
     config = datacite.config.get_config(args)
     with args.control.open('rt') as f:
         data = yaml.safe_load(f)
@@ -61,13 +61,13 @@ def builk_create_doi(args):
         doi.metadata = datacite.xml.XML(Path(entry['metadata']))
         doi.create(config)
 
-builk_create_parser = subparsers.add_parser('bulk-create',
-                                            help="Mint several DOIs")
-builk_create_parser.add_argument('control',
-                                 help="control file",
-                                 metavar="control.yaml",
-                                 type=Path)
-builk_create_parser.set_defaults(func=builk_create_doi)
+bulk_create_parser = subparsers.add_parser('bulk-create',
+                                           help="Mint several DOIs")
+bulk_create_parser.add_argument('control',
+                                help="control file",
+                                metavar="control.yaml",
+                                type=Path)
+bulk_create_parser.set_defaults(func=bulk_create_doi)
 
 
 def update_doi(args):
