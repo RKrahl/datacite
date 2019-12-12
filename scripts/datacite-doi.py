@@ -67,10 +67,15 @@ def bulk_create_doi(args):
         metadata = datacite.xml.XML(Path(entry['metadata']))
         doi.metadata = metadata
         log.info("Mint %s for %s", doi.doi, metadata.title)
-        doi.create(config)
+        if not args.dry_run:
+            doi.create(config)
 
 bulk_create_parser = subparsers.add_parser('bulk-create',
                                            help="Mint several DOIs")
+bulk_create_parser.add_argument('--dry-run',
+                                help=("show what would be done, "
+                                      "do not actually create any DOIs"),
+                                action='store_true')
 bulk_create_parser.add_argument('control',
                                 help="control file",
                                 metavar="control.yaml",
