@@ -62,6 +62,11 @@ def bulk_create_doi(args):
     with args.control.open('rt') as f:
         data = yaml.safe_load(f)
     for entry in data:
+        try:
+            if entry['ignore']:
+                continue
+        except KeyError:
+            pass
         doi = Doi(entry['doi'])
         doi.url = entry['url']
         metadata = datacite.xml.XML(Path(entry['metadata']))
