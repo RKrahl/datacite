@@ -44,17 +44,29 @@ def add_cli_arguments(argparser, *, login=True):
         argparser.add_argument('-u', '--username', help="username")
         argparser.add_argument('-p', '--password', help="password")
 
-def get_config(args, *, login=True):
-    if login and 'username' in args:
+def get_config(args=None, *, login=True, **kwargs):
+
+    def _get_arg(opt, kwargs, args):
+        v = kwargs.pop(opt, None)
+        if v is not None:
+            return v
+        if args is not None:
+            return getattr(args, opt)
+        return None
+
+    if login:
         opts = ['configfile', 'configsection', 'apiurl', 'username', 'password']
     else:
         opts = ['configfile', 'configsection', 'apiurl']
     config = Configuration(opts)
-    if args.configsection:
+
+    c_section_arg = _get_arg('configsection', kwargs, args)
+    c_file_arg = _get_arg('configfile', kwargs, args)
+    if c_section_arg:
         configfile = configparser.ConfigParser()
-        fnames = args.configfile or [str(d / cfgfname) for d in cfgdirs]
+        fnames = c_file_arg or [str(d / cfgfname) for d in cfgdirs]
         config.configfile = configfile.read(fnames)
-        config.configsection = args.configsection
+        config.configsection = c_section_arg
         if not config.configfile:
             raise ConfigError("Could not read config file.")
         if not configfile.has_section(config.configsection):
@@ -64,7 +76,7 @@ def get_config(args, *, login=True):
         config.configfile = None
         config.configsection = None
     for opt in opts[2:]:
-        value = getattr(args, opt)
+        value = _get_arg(opt, kwargs, args)
         if value is not None:
             setattr(config, opt, value)
             continue
@@ -80,6 +92,9 @@ def get_config(args, *, login=True):
             setattr(config, opt, getpass.getpass())
             continue
         raise ConfigError("Config option '%s' not given." % opt)
+    if kwargs:
+        inv_args = ",".join("'%s'" % k for k in kwargs)
+        raise TypeError("invalid keyword argument(s) %s" % inv_args)
     if not config.apiurl.endswith('/'):
         config.apiurl += '/'
     return config
