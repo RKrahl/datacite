@@ -3,12 +3,19 @@
 
 import base64
 import json
+import re
 import requests
 
 class Doi:
 
+    DOI_re = re.compile(r"^(?:doi:)?(10\..+/.+)$")
+
     def __init__(self, doi):
-        self._doi = doi
+        m = self.DOI_re.match(doi)
+        if m:
+            self._doi = m.group(1)
+        else:
+            raise ValueError("Invalid DOI '%s'" % doi)
         self._data = None
 
     def _init_data(self):
