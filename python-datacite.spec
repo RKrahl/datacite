@@ -5,7 +5,7 @@ Version:	$version
 Release:	0
 Url:		$url
 Summary:	$description
-License:	Internal-Use
+License:	Apache-2.0
 Group:		Development/Libraries/Python
 Source:		%{distname}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.4
@@ -37,6 +37,7 @@ done
 %files
 %defattr(-,root,root)
 %doc README.rst
+%license LICENSE
 %{python3_sitelib}/*
 %{_bindir}/*
 

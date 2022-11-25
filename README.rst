@@ -32,9 +32,26 @@ Optional library packages:
   tree as cloned from Git repository.
 
 
+Copyright and License
+---------------------
+
+Copyright 2019–2022
+Helmholtz-Zentrum Berlin für Materialien und Energie GmbH
+
+Licensed under the `Apache License`_, Version 2.0 (the "License"); you
+may not use this package except in compliance with the License.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied.  See the License for the specific language governing
+permissions and limitations under the License.
+
+
 .. _DataCite: https://datacite.org/
 .. _DataCite REST API: https://support.datacite.org/docs/api
 .. _Helmholtz-Zentrum Berlin für Materialien und Energie: https://www.helmholtz-berlin.de/
 .. _lxml: https://lxml.de/
 .. _Requests: http://python-requests.org/
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm/
+.. _Apache License: https://www.apache.org/licenses/LICENSE-2.0
