@@ -37,7 +37,7 @@ done
 
 %files
 %defattr(-,root,root)
-%doc README.rst
+%doc README.rst CHANGES.rst
 %license LICENSE
 %{python3_sitelib}/*
 %{_bindir}/*
