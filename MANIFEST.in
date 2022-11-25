@@ -1,4 +1,4 @@
-include .version
 include LICENSE
 include MANIFEST.in
 include README.rst
+include _meta.py

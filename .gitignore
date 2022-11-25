@@ -1,7 +1,7 @@
 __pycache__/
 /.env
-/.version
 /MANIFEST
+/_meta.py
 /build/
 /dist/
 /datacite/__init__.py

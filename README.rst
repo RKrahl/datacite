@@ -18,6 +18,7 @@ Python:
 
 Required library packages:
 
++ `setuptools`_
 + `lxml`_
 + `Requests`_
 
@@ -51,6 +52,7 @@ permissions and limitations under the License.
 .. _DataCite: https://datacite.org/
 .. _DataCite REST API: https://support.datacite.org/docs/api
 .. _Helmholtz-Zentrum Berlin für Materialien und Energie: https://www.helmholtz-berlin.de/
+.. _setuptools: https://github.com/pypa/setuptools/
 .. _lxml: https://lxml.de/
 .. _Requests: http://python-requests.org/
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm/

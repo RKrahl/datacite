@@ -12,12 +12,15 @@ sdist:
 
 clean:
 	rm -rf build
+	rm -rf __pycache__
 
 distclean: clean
-	rm -rf datacite/__pycache__
-	rm -f MANIFEST .version
+	rm -f MANIFEST _meta.py
 	rm -f datacite/__init__.py
 	rm -rf dist
 
+meta:
+	$(PYTHON) setup.py meta
 
-.PHONY: build test sdist clean distclean
+
+.PHONY: build test sdist clean distclean meta

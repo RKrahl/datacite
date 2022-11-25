@@ -9,6 +9,7 @@ License:	Apache-2.0
 Group:		Development/Libraries/Python
 Source:		%{distname}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.4
+BuildRequires:	python3-setuptools
 Requires:	python3-lxml
 Requires:	python3-requests
 BuildArch:	noarch
