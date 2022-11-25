@@ -55,7 +55,7 @@ permissions and limitations under the License.
 .. _Helmholtz-Zentrum Berlin für Materialien und Energie: https://www.helmholtz-berlin.de/
 .. _setuptools: https://github.com/pypa/setuptools/
 .. _lxml: https://lxml.de/
-.. _Requests: http://python-requests.org/
+.. _Requests: https://requests.readthedocs.io/
 .. _PyYAML: https://github.com/yaml/pyyaml
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm/
 .. _Apache License: https://www.apache.org/licenses/LICENSE-2.0
