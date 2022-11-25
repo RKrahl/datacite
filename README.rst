@@ -21,6 +21,7 @@ Required library packages:
 + `setuptools`_
 + `lxml`_
 + `Requests`_
++ `PyYAML`_
 
 Optional library packages:
 
@@ -55,5 +56,6 @@ permissions and limitations under the License.
 .. _setuptools: https://github.com/pypa/setuptools/
 .. _lxml: https://lxml.de/
 .. _Requests: http://python-requests.org/
+.. _PyYAML: https://github.com/yaml/pyyaml
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm/
 .. _Apache License: https://www.apache.org/licenses/LICENSE-2.0
