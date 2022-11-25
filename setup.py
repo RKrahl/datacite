@@ -1,7 +1,7 @@
 """Create and manage DOIs using the DataCite API
 
-This package provides scripts to mint and manage DataCite DOIs using
-the DataCite API.
+This package provides a command line script to mint and manage
+DataCite DOIs using the DataCite REST API.
 """
 
 import distutils.command.build_py
@@ -89,7 +89,7 @@ setup(
     long_description = "\n".join(doclines[2:]),
     author = "Rolf Krahl",
     author_email = "rolf.krahl@helmholtz-berlin.de",
-    url = "https://it-ed-git.basisit.de/jsi/datacite",
+    url = "https://github.com/RKrahl/datacite",
     license = "Internal-Use",
     requires = ["lxml", "requests"],
     packages = ["datacite"],
@@ -107,4 +107,3 @@ setup(
     ],
     cmdclass = {'build_py': build_py, 'sdist': sdist, 'init_py': init_py},
 )
-

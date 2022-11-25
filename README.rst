@@ -1,11 +1,12 @@
 Create and manage DOIs using the DataCite API
 =============================================
 
-This package provides scripts to mint and manage `DataCite`_ DOIs using
-the `DataCite REST API`_.
+This package provides a command line script to mint and manage
+`DataCite`_ DOIs using the `DataCite REST API`_.
 
-The current development status is planning and exploring.  Nothing
-here is stable yet.
+I wrote this package for my own use at `Helmholtz-Zentrum Berlin für
+Materialien und Energie`_.  The current development status is planning
+and exploring.  Nothing here is stable yet.
 
 
 System requirements
@@ -33,6 +34,7 @@ Optional library packages:
 
 .. _DataCite: https://datacite.org/
 .. _DataCite REST API: https://support.datacite.org/docs/api
+.. _Helmholtz-Zentrum Berlin für Materialien und Energie: https://www.helmholtz-berlin.de/
 .. _lxml: https://lxml.de/
 .. _Requests: http://python-requests.org/
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm/
