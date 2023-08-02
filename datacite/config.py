@@ -5,6 +5,7 @@ import argparse
 import configparser
 import getpass
 from pathlib import Path
+import keyring
 
 
 cfgdirs = [ Path("/etc/datacite"), 
@@ -13,6 +14,14 @@ cfgdirs = [ Path("/etc/datacite"),
 """Default search path for the configuration file"""
 cfgfname = "datacite.cfg"
 """Default configuration file name"""
+
+
+def _get_password(config):
+    if config.keyring:
+        p = keyring.get_password("DataCite", config.username)
+        if p is not None:
+            return p
+    return getpass.getpass()
 
 
 class ConfigError(Exception):
@@ -43,6 +52,15 @@ def add_cli_arguments(argparser, *, login=True):
     if login:
         argparser.add_argument('-u', '--username', help="username")
         argparser.add_argument('-p', '--password', help="password")
+        argparser.add_argument('--keyring',
+                               dest='keyring',
+                               action='store_const', const=True,
+                               help=argparse.SUPPRESS)
+        argparser.add_argument('--no-keyring',
+                               dest='keyring',
+                               action='store_const', const=False,
+                               help="do not try to get the password from the "
+                               "system keyring service")
 
 def get_config(args=None, *, login=True, **kwargs):
 
@@ -55,7 +73,8 @@ def get_config(args=None, *, login=True, **kwargs):
         return None
 
     if login:
-        opts = ['configfile', 'configsection', 'apiurl', 'username', 'password']
+        opts = ['configfile', 'configsection', 'apiurl',
+                'keyring', 'username', 'password']
     else:
         opts = ['configfile', 'configsection', 'apiurl']
     config = Configuration(opts)
@@ -82,14 +101,20 @@ def get_config(args=None, *, login=True, **kwargs):
             continue
         if config.configsection:
             try:
-                value = configfile.get(config.configsection, opt)
+                if opt == 'keyring':
+                    value = configfile.getboolean(config.configsection, opt)
+                else:
+                    value = configfile.get(config.configsection, opt)
             except configparser.NoOptionError:
                 pass
             else:
                 setattr(config, opt, value)
                 continue
+        if opt == 'keyring':
+            setattr(config, opt, True)
+            continue
         if opt == 'password':
-            setattr(config, opt, getpass.getpass())
+            setattr(config, opt, _get_password(config))
             continue
         raise ConfigError("Config option '%s' not given." % opt)
     if kwargs:

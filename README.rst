@@ -19,6 +19,7 @@ Python:
 Required library packages:
 
 + `setuptools`_
++ `keyring`_
 + `lxml`_
 + `Requests`_
 + `PyYAML`_
@@ -54,6 +55,7 @@ permissions and limitations under the License.
 .. _DataCite REST API: https://support.datacite.org/docs/api
 .. _Helmholtz-Zentrum Berlin für Materialien und Energie: https://www.helmholtz-berlin.de/
 .. _setuptools: https://github.com/pypa/setuptools/
+.. _keyring: https://pypi.org/project/keyring/
 .. _lxml: https://lxml.de/
 .. _Requests: https://requests.readthedocs.io/
 .. _PyYAML: https://github.com/yaml/pyyaml
