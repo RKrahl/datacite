@@ -13,6 +13,7 @@ BuildRequires:	python3-setuptools
 Requires:	python3-PyYAML
 Requires:	python3-lxml
 Requires:	python3-requests
+Requires:	python3-keyring
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
