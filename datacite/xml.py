@@ -26,8 +26,7 @@ class XML:
     def __init__(self, path):
         with path.open('rb') as f:
             self._etree = etree.parse(f)
-        if not self.XMLSchema().validate(self._etree):
-            raise ValueError("%s: invalid metadata." % path)
+        self.XMLSchema().assertValid(self._etree)
 
     @property
     def doi(self):
