@@ -119,7 +119,7 @@ setup(
         "Programming Language :: Python :: 3.11",
     ],
     packages = ["datacite"],
-    scripts = ["scripts/datacite-doi.py"],
+    scripts = ["scripts/datacite-doi.py", "scripts/datacite-validate-xml.py"],
     python_requires = ">=3.4",
     install_requires = ["keyring", "lxml", "requests", "PyYAML"],
     cmdclass = dict(build_py=build_py, sdist=sdist, meta=meta),
