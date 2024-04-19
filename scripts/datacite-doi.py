@@ -1,9 +1,9 @@
 #! python
 
 import argparse
+import json
 import logging
 from pathlib import Path
-import pprint
 import yaml
 import datacite.config
 from datacite.doi import Doi
@@ -24,7 +24,7 @@ def get_metadata(args):
     if args.show == 'metadata_xml':
         print(doi.metadata)
     elif args.show == 'attributes':
-        pprint.pprint(doi.attributes)
+        print(json.dumps(doi.attributes, indent=2))
     else:
         raise RuntimeError("Internal error: invalid value '%s' for args.show"
                            % args.show)
