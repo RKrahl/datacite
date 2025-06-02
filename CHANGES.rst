@@ -12,7 +12,7 @@ Changelog
   :class:`datacite.xml.XML` raises :exc:`lxml.etree.DocumentInvalid`
   instead of :exc:`ValueError` if the metadata fails to validate.
 
-+ Update the XML schema url for DataCite metadata to version 4.5
++ Update the XML schema url for DataCite metadata to version 4.6
 
 .. _#1: https://github.com/RKrahl/datacite/pull/1
 .. _#2: https://github.com/RKrahl/datacite/pull/2

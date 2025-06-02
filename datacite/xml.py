@@ -13,7 +13,7 @@ class XML:
 
     xml_ns = 'http://datacite.org/schema/kernel-4'
     """The URL to use for the XML name space."""
-    xml_schema_url = 'http://schema.datacite.org/meta/kernel-4.5/metadata.xsd'
+    xml_schema_url = 'http://schema.datacite.org/meta/kernel-4.6/metadata.xsd'
     """The URL of the DataCite metadata XML Schema Definition."""
     _xml_schema = None
 
