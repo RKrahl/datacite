@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-0.2 (not yet released)
-~~~~~~~~~~~~~~~~~~~~~~
+0.2 (2025-06-02)
+~~~~~~~~~~~~~~~~
 
 + `#1`_: Add support for retrieving the DataCite API password from the
   system keyring.
