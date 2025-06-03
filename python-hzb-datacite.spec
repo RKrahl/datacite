@@ -7,23 +7,26 @@
 
 %global distname datacite
 
-Name:		python-hzb-%{distname}
-Version:	$version
-Release:	0
-Summary:	$description
-License:	Apache-2.0
-URL:		$url
-Group:		Development/Libraries/Python
-Source:		%{distname}-%{version}.tar.gz
-BuildRequires:	%{python_module base >= 3.4}
-BuildRequires:	%{python_module setuptools}
-BuildRequires:	fdupes
-BuildRequires:	python-rpm-macros
-Requires:	python-PyYAML
-Requires:	python-lxml
-Requires:	python-requests
-Requires:	python-keyring
-BuildArch:	noarch
+Name:		    python-hzb-%{distname}
+Version:	    $version
+Release:	    0
+Summary:	    $description
+License:	    Apache-2.0
+URL:		    $url
+Group:		    Development/Libraries/Python
+Source:		    %{distname}-%{version}.tar.gz
+BuildRequires:	    %{python_module base >= 3.4}
+BuildRequires:	    %{python_module setuptools}
+BuildRequires:	    fdupes
+BuildRequires:	    python-rpm-macros
+BuildRequires:	    update-alternatives
+Requires:	    python-PyYAML
+Requires:	    python-lxml
+Requires:	    python-requests
+Requires:	    python-keyring
+Requires(post):	    update-alternatives
+Requires(postun):   update-alternatives
+BuildArch:	    noarch
 %python_subpackages
 
 %description
@@ -40,18 +43,27 @@ $long_description
 
 %install
 %python_install
-%fdupes %{buildroot}%{python_sitelib}
-for f in `ls %{buildroot}%{_bindir}`
+for f in datacite-doi datacite-validate-xml
 do
-    mv %{buildroot}%{_bindir}/$$f %{buildroot}%{_bindir}/$${f%%.py}
+    mv %{buildroot}%{_bindir}/$$f.py %{buildroot}%{_bindir}/$$f
+    %python_clone -a %{buildroot}%{_bindir}/$$f
 done
+%fdupes %{buildroot}%{python_sitelib}
+
+
+%post
+%python_install_alternative datacite-doi datacite-validate-xml
+
+%postun
+%python_uninstall_alternative datacite-doi datacite-validate-xml
 
 
 %files %{python_files}
 %license LICENSE
 %doc README.rst CHANGES.rst
+%python_alternative %{_bindir}/datacite-doi
+%python_alternative %{_bindir}/datacite-validate-xml
 %{python_sitelib}/*
-%{_bindir}/*
 
 
 %changelog
