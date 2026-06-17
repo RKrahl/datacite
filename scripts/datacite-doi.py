@@ -86,7 +86,7 @@ update_parser.add_argument('--metadata',
                            help="XML file with DOI metadata",
                            metavar="metadata.xml",
                            type=Path)
-update_parser.add_argument('doi', help="the DOI to create")
+update_parser.add_argument('doi', help="the DOI to update")
 update_parser.set_defaults(func=update_doi)
 
 
