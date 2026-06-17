@@ -5,6 +5,11 @@ Changelog
 0.3 (not yet released)
 ~~~~~~~~~~~~~~~~~~~~~~
 
+New features
+------------
+
++ `#8`_, `#9`_: Add an `overview` option to `datacite-doi get`.
+
 Incompatible changes
 --------------------
 
@@ -21,6 +26,8 @@ Bug fixes and minor changes
 .. _#5: https://github.com/RKrahl/datacite/pull/5
 .. _#6: https://github.com/RKrahl/datacite/issues/6
 .. _#7: https://github.com/RKrahl/datacite/pull/7
+.. _#8: https://github.com/RKrahl/datacite/issues/8
+.. _#9: https://github.com/RKrahl/datacite/pull/9
 
 
 0.2 (2025-06-02)
