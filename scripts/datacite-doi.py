@@ -20,7 +20,11 @@ def get_metadata(args):
     config = datacite.config.get_config(args, login=False)
     doi = Doi(args.doi)
     doi.fetch(config)
-    if args.show == 'metadata_xml':
+    if args.show == 'overview':
+        print("DOI: %s" % doi.doi)
+        print("State: %s" % doi.state)
+        print("URL: %s" % doi.url)
+    elif args.show == 'metadata_xml':
         print(doi.metadata)
     elif args.show == 'attributes':
         print(json.dumps(doi.attributes, indent=2))
@@ -31,8 +35,9 @@ def get_metadata(args):
 get_metadata_parser = subparsers.add_parser('get', help="Query a DOI")
 get_metadata_parser.add_argument('--show',
                                  help="select the kind of information to show",
-                                 choices=['metadata_xml', 'attributes'],
-                                 default='metadata_xml')
+                                 choices=['overview',
+                                          'metadata_xml', 'attributes'],
+                                 default='overview')
 get_metadata_parser.add_argument('doi', help="the DOI to search")
 get_metadata_parser.set_defaults(func=get_metadata)
 
