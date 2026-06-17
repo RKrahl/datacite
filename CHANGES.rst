@@ -22,12 +22,17 @@ Bug fixes and minor changes
 + `#4`_, `#5`_: Update the XML schema url for DataCite metadata to
   version 4.7.
 
++ `#10`_, `#11`_: `Doi.create()` should verify that the DOI attributes
+  are set.
+
 .. _#4: https://github.com/RKrahl/datacite/issues/4
 .. _#5: https://github.com/RKrahl/datacite/pull/5
 .. _#6: https://github.com/RKrahl/datacite/issues/6
 .. _#7: https://github.com/RKrahl/datacite/pull/7
 .. _#8: https://github.com/RKrahl/datacite/issues/8
 .. _#9: https://github.com/RKrahl/datacite/pull/9
+.. _#10: https://github.com/RKrahl/datacite/issues/10
+.. _#11: https://github.com/RKrahl/datacite/pull/11
 
 
 0.2 (2025-06-02)
