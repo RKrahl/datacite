@@ -58,47 +58,6 @@ create_parser.add_argument('metadata',
 create_parser.set_defaults(func=create_doi)
 
 
-def bulk_create_doi(args):
-    config = datacite.config.get_config(args)
-    with args.control.open('rt') as f:
-        data = yaml.safe_load(f)
-    count = args.doi_start_count
-    for entry in data:
-        try:
-            if entry['ignore']:
-                continue
-        except KeyError:
-            pass
-        doi = Doi(entry['doi'] or (args.doi_format % count))
-        doi.url = entry['url']
-        metadata = datacite.xml.XML(Path(entry['metadata']))
-        metadata.doi = doi.doi
-        doi.metadata = metadata
-        log.info("Mint %s for %s", doi.doi, metadata.title)
-        if not args.dry_run:
-            doi.create(config)
-        count += 1
-
-bulk_create_parser = subparsers.add_parser('bulk-create',
-                                           help="Mint several DOIs")
-bulk_create_parser.add_argument('--dry-run',
-                                help=("show what would be done, "
-                                      "do not actually create any DOIs"),
-                                action='store_true')
-bulk_create_parser.add_argument('--doi-format',
-                                help=("DOI format string"),
-                                default='10.5442/NI%06d')
-bulk_create_parser.add_argument('--doi-start-count',
-                                help=("start value for the serial number in "
-                                      "the DOI"),
-                                type=int, default=1)
-bulk_create_parser.add_argument('control',
-                                help="control file",
-                                metavar="control.yaml",
-                                type=Path)
-bulk_create_parser.set_defaults(func=bulk_create_doi)
-
-
 def update_doi(args):
     config = datacite.config.get_config(args)
     doi = Doi(args.doi)
