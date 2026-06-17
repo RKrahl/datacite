@@ -22,7 +22,6 @@ Required library packages:
 + `keyring`_
 + `lxml`_
 + `Requests`_
-+ `PyYAML`_
 
 Optional library packages:
 
@@ -58,6 +57,5 @@ permissions and limitations under the License.
 .. _keyring: https://pypi.org/project/keyring/
 .. _lxml: https://lxml.de/
 .. _Requests: https://requests.readthedocs.io/
-.. _PyYAML: https://github.com/yaml/pyyaml
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm/
 .. _Apache License: https://www.apache.org/licenses/LICENSE-2.0

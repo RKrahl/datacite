@@ -5,11 +5,22 @@ Changelog
 0.3 (not yet released)
 ~~~~~~~~~~~~~~~~~~~~~~
 
+Incompatible changes
+--------------------
+
++ `#6`_, `#7`_: Remove subcommand `bulk-create` from `datacite-doi`
+  script.
+
+Bug fixes and minor changes
+---------------------------
+
 + `#4`_, `#5`_: Update the XML schema url for DataCite metadata to
   version 4.7.
 
 .. _#4: https://github.com/RKrahl/datacite/issues/4
 .. _#5: https://github.com/RKrahl/datacite/pull/5
+.. _#6: https://github.com/RKrahl/datacite/issues/6
+.. _#7: https://github.com/RKrahl/datacite/pull/7
 
 
 0.2 (2025-06-02)
