@@ -93,8 +93,8 @@ class Doi:
         self._data = response.json()
 
     def create(self, config, event='publish'):
-        if self._data is None:
-            self._init_data()
+        if not (self.url and self.metadata):
+            raise ValueError("DOI attributes not set")
         self._data['data']['attributes']['event'] = event
         headers = {'content-type': 'application/vnd.api+json'}
         response = requests.post(config.apiurl,
