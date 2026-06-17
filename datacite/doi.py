@@ -39,6 +39,13 @@ class Doi:
         return self._data['data']['attributes']
 
     @property
+    def state(self):
+        try:
+            return self._data['data']['attributes']['state']
+        except (TypeError, KeyError):
+            return None
+
+    @property
     def url(self):
         try:
             return self._data['data']['attributes']['url']
