@@ -121,6 +121,6 @@ setup(
     packages = ["datacite"],
     scripts = ["scripts/datacite-doi.py", "scripts/datacite-validate-xml.py"],
     python_requires = ">=3.4",
-    install_requires = ["keyring", "lxml", "requests", "PyYAML"],
+    install_requires = ["keyring", "lxml", "requests"],
     cmdclass = dict(build_py=build_py, sdist=sdist, meta=meta),
 )

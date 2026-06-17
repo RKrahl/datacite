@@ -20,7 +20,6 @@ BuildRequires:	    %{python_module setuptools}
 BuildRequires:	    fdupes
 BuildRequires:	    python-rpm-macros
 BuildRequires:	    update-alternatives
-Requires:	    python-PyYAML
 Requires:	    python-lxml
 Requires:	    python-requests
 Requires:	    python-keyring

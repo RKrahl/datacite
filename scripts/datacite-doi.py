@@ -4,7 +4,6 @@ import argparse
 import json
 import logging
 from pathlib import Path
-import yaml
 import datacite.config
 from datacite.doi import Doi
 import datacite.xml
