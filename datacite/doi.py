@@ -106,10 +106,12 @@ class Doi:
             response.raise_for_status()
 
     def update(self, config, event=None):
-        if self._data is None:
-            raise ValueError("DOI attributes not set")
         if event:
+            if self._data is None:
+                self._init_data()
             self._data['data']['attributes']['event'] = event
+        elif self._data is None:
+            raise ValueError("DOI attributes not set")
         headers = {'content-type': 'application/vnd.api+json'}
         response = requests.put(config.apiurl+self.doi,
                                 data=json.dumps(self._data),
