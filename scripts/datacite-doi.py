@@ -17,7 +17,7 @@ subparsers = argparser.add_subparsers(title='subcommands', dest='subcmd')
 
 
 def get_metadata(args):
-    config = datacite.config.get_config(args, login=False)
+    config = datacite.config.get_config(args, login=args.login)
     doi = Doi(args.doi)
     doi.fetch(config)
     if args.show == 'overview':
@@ -33,6 +33,9 @@ def get_metadata(args):
                            % args.show)
 
 get_metadata_parser = subparsers.add_parser('get', help="Query a DOI")
+get_metadata_parser.add_argument('--login', action='store_true',
+                                 help=("login to DataCite in order to "
+                                       "search for the DOI"))
 get_metadata_parser.add_argument('--show',
                                  help="select the kind of information to show",
                                  choices=['overview',
