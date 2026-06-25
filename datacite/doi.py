@@ -87,7 +87,12 @@ class Doi:
 
     def fetch(self, config):
         headers = {'accept': 'application/vnd.api+json'}
-        response = requests.get(config.apiurl+self.doi, headers=headers)
+        if config.login:
+            response = requests.get(config.apiurl+self.doi,
+                                    auth=(config.username, config.password),
+                                    headers=headers)
+        else:
+            response = requests.get(config.apiurl+self.doi, headers=headers)
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
         self._data = response.json()
