@@ -78,6 +78,7 @@ def get_config(args=None, *, login=True, **kwargs):
     else:
         opts = ['configfile', 'configsection', 'apiurl']
     config = Configuration(opts)
+    config.login = login
 
     c_section_arg = _get_arg('configsection', kwargs, args)
     c_file_arg = _get_arg('configfile', kwargs, args)

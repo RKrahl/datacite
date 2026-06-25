@@ -87,15 +87,21 @@ class Doi:
 
     def fetch(self, config):
         headers = {'accept': 'application/vnd.api+json'}
-        response = requests.get(config.apiurl+self.doi, headers=headers)
+        if config.login:
+            response = requests.get(config.apiurl+self.doi,
+                                    auth=(config.username, config.password),
+                                    headers=headers)
+        else:
+            response = requests.get(config.apiurl+self.doi, headers=headers)
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
         self._data = response.json()
 
-    def create(self, config, event='publish'):
+    def create(self, config, event=None):
         if not (self.url and self.metadata):
             raise ValueError("DOI attributes not set")
-        self._data['data']['attributes']['event'] = event
+        if event:
+            self._data['data']['attributes']['event'] = event
         headers = {'content-type': 'application/vnd.api+json'}
         response = requests.post(config.apiurl,
                                  data=json.dumps(self._data),
@@ -104,10 +110,13 @@ class Doi:
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
 
-    def update(self, config, event='publish'):
-        if self._data is None:
+    def update(self, config, event=None):
+        if event:
+            if self._data is None:
+                self._init_data()
+            self._data['data']['attributes']['event'] = event
+        elif self._data is None:
             raise ValueError("DOI attributes not set")
-        self._data['data']['attributes']['event'] = event
         headers = {'content-type': 'application/vnd.api+json'}
         response = requests.put(config.apiurl+self.doi,
                                 data=json.dumps(self._data),

@@ -17,7 +17,7 @@ subparsers = argparser.add_subparsers(title='subcommands', dest='subcmd')
 
 
 def get_metadata(args):
-    config = datacite.config.get_config(args, login=False)
+    config = datacite.config.get_config(args, login=args.login)
     doi = Doi(args.doi)
     doi.fetch(config)
     if args.show == 'overview':
@@ -33,6 +33,9 @@ def get_metadata(args):
                            % args.show)
 
 get_metadata_parser = subparsers.add_parser('get', help="Query a DOI")
+get_metadata_parser.add_argument('--login', action='store_true',
+                                 help=("login to DataCite in order to "
+                                       "search for the DOI"))
 get_metadata_parser.add_argument('--show',
                                  help="select the kind of information to show",
                                  choices=['overview',
@@ -49,10 +52,16 @@ def create_doi(args):
     metadata = datacite.xml.XML(args.metadata)
     metadata.doi = doi.doi
     doi.metadata = metadata
+    if args.event == 'None':
+        args.event = None
     log.info("Mint %s for %s", doi.doi, metadata.title)
-    doi.create(config)
+    doi.create(config, event=args.event)
 
 create_parser = subparsers.add_parser('create', help="Mint a DOI")
+create_parser.add_argument('--event',
+                           choices=['None', 'publish', 'register'],
+                           default='publish',
+                           help="event argument to set the state")
 create_parser.add_argument('doi', help="the DOI to create")
 create_parser.add_argument('url', help="URL of the landing page")
 create_parser.add_argument('metadata',
@@ -74,13 +83,18 @@ def update_doi(args):
         metadata.doi = doi.doi
         doi.metadata = metadata
         need_update = True
+    if args.event:
+        need_update = True
     if need_update:
         log.info("Update %s", doi.doi)
-        doi.update(config)
+        doi.update(config, event=args.event)
     else:
         log.info("Nothing to do")
 
 update_parser = subparsers.add_parser('update', help="Update a DOI")
+update_parser.add_argument('--event',
+                           choices=['publish', 'register', 'hide'],
+                           help="event argument to change the state")
 update_parser.add_argument('--url', help="URL of the landing page")
 update_parser.add_argument('--metadata',
                            help="XML file with DOI metadata",
