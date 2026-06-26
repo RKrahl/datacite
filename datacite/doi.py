@@ -137,10 +137,12 @@ class Doi:
     def create(self, config, event=None):
         if not config.login:
             raise ValueError("DOI create requires login credentials")
-        if not (self.url and self.metadata):
-            raise ValueError("DOI attributes not set")
         if event:
+            if not (self.url and self.metadata):
+                raise ValueError("DOI attributes not set")
             self._data['data']['attributes']['event'] = event
+        elif self._data is None:
+            self._init_data()
         headers = {'content-type': 'application/vnd.api+json'}
         response = requests.post(config.apiurl,
                                  data=json.dumps(self._data),
