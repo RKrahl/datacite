@@ -129,6 +129,11 @@ class Doi:
             response.raise_for_status()
         self._data = response.json()
 
+    def get_state(self, config):
+        doi = Doi(self.doi)
+        doi.fetch(config)
+        return doi.state
+
     def create(self, config, event=None):
         if not (self.url and self.metadata):
             raise ValueError("DOI attributes not set")
