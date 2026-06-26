@@ -2,9 +2,41 @@
 """
 
 import base64
+import enum
 import json
 import re
 import requests
+
+
+class State(enum.StrEnum):
+    DRAFT = enum.auto()
+    REGISTERED = enum.auto()
+    FINDABLE = enum.auto()
+
+    @classmethod
+    def transition_event(cls, current, target):
+        """Return the event to transition from current to target.
+        """
+        if current is None:
+            current = cls.DRAFT
+        else:
+            current = cls(current)
+        target = cls(target)
+        if target == current:
+            return None
+        elif target == cls.DRAFT:
+            raise ValueError("Cannot change a DOI from %s to %s"
+                             % (current, target))
+        elif target == cls.REGISTERED and current == cls.DRAFT:
+            return 'register'
+        elif target == cls.REGISTERED and current == cls.FINDABLE:
+            return 'hide'
+        elif target == cls.FINDABLE:
+            return 'publish'
+        else:
+            # all possible combinations covered, cannot reach here
+            assert False
+
 
 class Doi:
 
