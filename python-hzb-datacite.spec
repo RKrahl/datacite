@@ -1,5 +1,5 @@
 %if 0%{?sle_version} >= 150500
-%global pythons python3 python311
+%global pythons python311
 %else
 %{?!python_module:%define python_module() python3-%{**}}
 %define skip_python2 1
@@ -15,7 +15,7 @@ License:	    Apache-2.0
 URL:		    $url
 Group:		    Development/Libraries/Python
 Source:		    %{distname}-%{version}.tar.gz
-BuildRequires:	    %{python_module base >= 3.4}
+BuildRequires:	    %{python_module base >= 3.11}
 BuildRequires:	    %{python_module setuptools}
 BuildRequires:	    fdupes
 BuildRequires:	    python-rpm-macros

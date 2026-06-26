@@ -14,7 +14,7 @@ System requirements
 
 Python:
 
-+ Python 3.4 or newer.
++ Python 3.11 or newer.
 
 Required library packages:
 
