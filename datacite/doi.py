@@ -134,9 +134,10 @@ class Doi:
         doi.fetch(config)
         return doi.state
 
-    def create(self, config, event=None):
+    def create(self, config, state=None):
         if not config.login:
             raise ValueError("DOI create requires login credentials")
+        event = State.transition_event(None, state)
         if event:
             if not (self.url and self.metadata):
                 raise ValueError("DOI attributes not set")
@@ -151,9 +152,10 @@ class Doi:
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
 
-    def update(self, config, event=None):
+    def update(self, config, state=None):
         if not config.login:
             raise ValueError("DOI update requires login credentials")
+        event = State.transition_event(self.get_state(), state)
         if event:
             if self._data is None:
                 self._init_data()
