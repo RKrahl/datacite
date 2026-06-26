@@ -135,6 +135,8 @@ class Doi:
         return doi.state
 
     def create(self, config, event=None):
+        if not config.login:
+            raise ValueError("DOI create requires login credentials")
         if not (self.url and self.metadata):
             raise ValueError("DOI attributes not set")
         if event:
@@ -148,6 +150,8 @@ class Doi:
             response.raise_for_status()
 
     def update(self, config, event=None):
+        if not config.login:
+            raise ValueError("DOI update requires login credentials")
         if event:
             if self._data is None:
                 self._init_data()
