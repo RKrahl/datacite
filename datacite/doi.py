@@ -159,7 +159,7 @@ class Doi:
     def update(self, config, state=None):
         if not config.login:
             raise ValueError("DOI update requires login credentials")
-        event = State.transition_event(self.get_state(), state)
+        event = State.transition_event(self.get_state(config), state)
         if event:
             if self._data is None:
                 self._init_data()
