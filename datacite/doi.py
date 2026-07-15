@@ -16,7 +16,11 @@ class State(enum.StrEnum):
     @classmethod
     def transition_event(cls, current, target):
         """Return the event to transition from current to target.
+
+        If target is None we assume that no transition is requested.
         """
+        if target is None:
+            return None
         if current is None:
             current = cls.DRAFT
         else:
