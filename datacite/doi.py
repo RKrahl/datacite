@@ -138,7 +138,7 @@ class Doi:
         doi.fetch(config)
         return doi.state
 
-    def create(self, config, state=None):
+    def create(self, config, state=State.DRAFT):
         if not config.login:
             raise ValueError("DOI create requires login credentials")
         event = State.transition_event(None, state)
