@@ -48,10 +48,12 @@ get_metadata_parser.set_defaults(func=get_metadata)
 def create_doi(args):
     config = datacite.config.get_config(args)
     doi = Doi(args.doi)
-    doi.url = args.url
-    metadata = datacite.xml.XML(args.metadata)
-    metadata.doi = doi.doi
-    doi.metadata = metadata
+    if args.url:
+        doi.url = args.url
+    if args.metadata:
+        metadata = datacite.xml.XML(args.metadata)
+        metadata.doi = doi.doi
+        doi.metadata = metadata
     log.info("Mint %s for %s", doi.doi, metadata.title)
     doi.create(config, state=args.state)
 
@@ -60,12 +62,12 @@ create_parser.add_argument('--state',
                            type=State, choices=[str(s) for s in State],
                            default='findable',
                            help="create the DOI with this state")
-create_parser.add_argument('doi', help="the DOI to create")
-create_parser.add_argument('url', help="URL of the landing page")
-create_parser.add_argument('metadata',
+create_parser.add_argument('--url', help="URL of the landing page")
+create_parser.add_argument('--metadata',
                            help="XML file with DOI metadata",
                            metavar="metadata.xml",
                            type=Path)
+create_parser.add_argument('doi', help="the DOI to create")
 create_parser.set_defaults(func=create_doi)
 
 
