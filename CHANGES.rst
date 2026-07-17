@@ -8,6 +8,8 @@ Changelog
 New features
 ------------
 
++ `#3`_, `#12`_: Add support for DOIs in Draft or Registered state.
+
 + `#8`_, `#9`_: Add an `overview` option to `datacite-doi get`.
 
 Incompatible changes
@@ -27,6 +29,7 @@ Bug fixes and minor changes
 + `#10`_, `#11`_: `Doi.create()` should verify that the DOI attributes
   are set.
 
+.. _#3: https://github.com/RKrahl/datacite/issues/3
 .. _#4: https://github.com/RKrahl/datacite/issues/4
 .. _#5: https://github.com/RKrahl/datacite/pull/5
 .. _#6: https://github.com/RKrahl/datacite/issues/6
@@ -35,6 +38,7 @@ Bug fixes and minor changes
 .. _#9: https://github.com/RKrahl/datacite/pull/9
 .. _#10: https://github.com/RKrahl/datacite/issues/10
 .. _#11: https://github.com/RKrahl/datacite/pull/11
+.. _#12: https://github.com/RKrahl/datacite/pull/12
 .. _#13: https://github.com/RKrahl/datacite/issues/13
 .. _#14: https://github.com/RKrahl/datacite/pull/14
 

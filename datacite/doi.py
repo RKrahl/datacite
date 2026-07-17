@@ -2,9 +2,45 @@
 """
 
 import base64
+import enum
 import json
 import re
 import requests
+
+
+class State(enum.StrEnum):
+    DRAFT = enum.auto()
+    REGISTERED = enum.auto()
+    FINDABLE = enum.auto()
+
+    @classmethod
+    def transition_event(cls, current, target):
+        """Return the event to transition from current to target.
+
+        If target is None we assume that no transition is requested.
+        """
+        if target is None:
+            return None
+        if current is None:
+            current = cls.DRAFT
+        else:
+            current = cls(current)
+        target = cls(target)
+        if target == current:
+            return None
+        elif target == cls.DRAFT:
+            raise ValueError("Cannot change a DOI from %s to %s"
+                             % (current, target))
+        elif target == cls.REGISTERED and current == cls.DRAFT:
+            return 'register'
+        elif target == cls.REGISTERED and current == cls.FINDABLE:
+            return 'hide'
+        elif target == cls.FINDABLE:
+            return 'publish'
+        else:
+            # all possible combinations covered, cannot reach here
+            assert False
+
 
 class Doi:
 
@@ -87,15 +123,31 @@ class Doi:
 
     def fetch(self, config):
         headers = {'accept': 'application/vnd.api+json'}
-        response = requests.get(config.apiurl+self.doi, headers=headers)
+        if config.login:
+            response = requests.get(config.apiurl+self.doi,
+                                    auth=(config.username, config.password),
+                                    headers=headers)
+        else:
+            response = requests.get(config.apiurl+self.doi, headers=headers)
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
         self._data = response.json()
 
-    def create(self, config, event='publish'):
-        if not (self.url and self.metadata):
-            raise ValueError("DOI attributes not set")
-        self._data['data']['attributes']['event'] = event
+    def get_state(self, config):
+        doi = Doi(self.doi)
+        doi.fetch(config)
+        return doi.state
+
+    def create(self, config, state=State.DRAFT):
+        if not config.login:
+            raise ValueError("DOI create requires login credentials")
+        event = State.transition_event(None, state)
+        if event:
+            if not (self.url and self.metadata):
+                raise ValueError("DOI attributes not set")
+            self._data['data']['attributes']['event'] = event
+        elif self._data is None:
+            self._init_data()
         headers = {'content-type': 'application/vnd.api+json'}
         response = requests.post(config.apiurl,
                                  data=json.dumps(self._data),
@@ -104,10 +156,17 @@ class Doi:
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
 
-    def update(self, config, event='publish'):
-        if self._data is None:
-            raise ValueError("DOI attributes not set")
-        self._data['data']['attributes']['event'] = event
+    def update(self, config, state=None):
+        if not config.login:
+            raise ValueError("DOI update requires login credentials")
+        event = State.transition_event(self.get_state(config), state)
+        if event:
+            if self._data is None:
+                self._init_data()
+            self._data['data']['attributes']['event'] = event
+        elif self._data is None:
+            # nothing to do
+            return
         headers = {'content-type': 'application/vnd.api+json'}
         response = requests.put(config.apiurl+self.doi,
                                 data=json.dumps(self._data),
