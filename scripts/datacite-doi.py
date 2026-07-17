@@ -54,7 +54,8 @@ def create_doi(args):
         metadata = datacite.xml.XML(args.metadata)
         metadata.doi = doi.doi
         doi.metadata = metadata
-    log.info("Mint %s for %s", doi.doi, metadata.title)
+    log.info("Mint %s for %s",
+             doi.doi, (metadata.title if args.metadata else "N/A"))
     doi.create(config, state=args.state)
 
 create_parser = subparsers.add_parser('create', help="Mint a DOI")
