@@ -18,7 +18,7 @@ cfgfname = "datacite.cfg"
 
 def _get_password(config):
     if config.keyring:
-        p = keyring.get_password("DataCite", config.username)
+        p = keyring.get_password(config.keyring_system, config.username)
         if p is not None:
             return p
     return getpass.getpass()
@@ -61,6 +61,8 @@ def add_cli_arguments(argparser, *, login=True):
                                action='store_const', const=False,
                                help="do not try to get the password from the "
                                "system keyring service")
+        argparser.add_argument('--keyring-system',
+                               help="system name to use in the keyring")
 
 def get_config(args=None, *, login=True, **kwargs):
 
@@ -74,7 +76,7 @@ def get_config(args=None, *, login=True, **kwargs):
 
     if login:
         opts = ['configfile', 'configsection', 'apiurl',
-                'keyring', 'username', 'password']
+                'keyring', 'keyring_system', 'username', 'password']
     else:
         opts = ['configfile', 'configsection', 'apiurl']
     config = Configuration(opts)
@@ -113,6 +115,9 @@ def get_config(args=None, *, login=True, **kwargs):
                 continue
         if opt == 'keyring':
             setattr(config, opt, True)
+            continue
+        if opt == 'keyring_system':
+            setattr(config, opt, "DataCite")
             continue
         if opt == 'password':
             setattr(config, opt, _get_password(config))
