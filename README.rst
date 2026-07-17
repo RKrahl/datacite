@@ -1,6 +1,8 @@
 Create and manage DOIs using the DataCite API
 =============================================
 
+**NOTE**: This repository has been moved to `python-hzb-datacite`_.
+
 This package provides a command line script to mint and manage
 `DataCite`_ DOIs using the `DataCite REST API`_.
 
@@ -46,6 +48,7 @@ implied.  See the License for the specific language governing
 permissions and limitations under the License.
 
 
+.. _python-hzb-datacite: https://codebase.helmholtz.cloud/hzb/research_data_management/python-hzb-datacite
 .. _DataCite: https://datacite.org/
 .. _DataCite REST API: https://support.datacite.org/docs/api
 .. _setuptools: https://github.com/pypa/setuptools/
