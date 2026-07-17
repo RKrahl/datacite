@@ -2,8 +2,10 @@ Changelog
 =========
 
 
-0.3 (not yet released)
-~~~~~~~~~~~~~~~~~~~~~~
+.. _changes-0_3:
+
+0.3 (2026-07-17)
+~~~~~~~~~~~~~~~~
 
 New features
 ------------
@@ -55,6 +57,8 @@ Internal changes
 .. _#17: https://github.com/RKrahl/datacite/pull/17
 
 
+.. _changes-0_2:
+
 0.2 (2025-06-02)
 ~~~~~~~~~~~~~~~~
 
@@ -70,6 +74,8 @@ Internal changes
 .. _#1: https://github.com/RKrahl/datacite/pull/1
 .. _#2: https://github.com/RKrahl/datacite/pull/2
 
+
+.. _changes-0_1:
 
 0.1 (2022-11-25)
 ~~~~~~~~~~~~~~~~
