@@ -58,7 +58,7 @@ done
 
 
 %files %{python_files}
-%license LICENSE
+%license LICENSE.txt
 %doc README.rst CHANGES.rst
 %python_alternative %{_bindir}/datacite-doi
 %python_alternative %{_bindir}/datacite-validate-xml
