@@ -12,6 +12,10 @@ New features
 
 + `#8`_, `#9`_: Add an `overview` option to `datacite-doi get`.
 
++ `#15`_, `#16`_: Add a new config option `keyring_system` for the
+  system name to be used when trying to fetch the password from the
+  keyring.
+
 Incompatible changes
 --------------------
 
@@ -41,6 +45,8 @@ Bug fixes and minor changes
 .. _#12: https://github.com/RKrahl/datacite/pull/12
 .. _#13: https://github.com/RKrahl/datacite/issues/13
 .. _#14: https://github.com/RKrahl/datacite/pull/14
+.. _#15: https://github.com/RKrahl/datacite/issues/15
+.. _#16: https://github.com/RKrahl/datacite/pull/16
 
 
 0.2 (2025-06-02)
