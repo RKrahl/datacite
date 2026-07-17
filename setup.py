@@ -10,7 +10,6 @@ import setuptools.command.build_py
 import distutils.command.sdist
 import distutils.dist
 from distutils import log
-from glob import glob
 from pathlib import Path
 import string
 try:
@@ -76,8 +75,8 @@ class sdist(distutils.command.sdist.sdist):
             "description": docstring.split("\n")[0],
             "long_description": docstring.split("\n", maxsplit=2)[2].strip(),
         }
-        for spec in glob("*.spec"):
-            with Path(spec).open('rt') as inf:
+        for spec in Path().glob("*.spec"):
+            with spec.open('rt') as inf:
                 with Path(self.dist_dir, spec).open('wt') as outf:
                     outf.write(string.Template(inf.read()).substitute(subst))
 
@@ -99,12 +98,13 @@ setup(
     version = version,
     description = docstring.split("\n")[0],
     long_description = readme,
+    long_description_content_type = "text/x-rst",
     url = "https://github.com/RKrahl/datacite",
     author = "Rolf Krahl",
     author_email = "rolf.krahl@helmholtz-berlin.de",
     license = "Apache-2.0",
     classifiers = [
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Information Technology",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
@@ -115,6 +115,10 @@ setup(
         "Programming Language :: Python :: 3.14",
         "Programming Language :: Python :: 3.15",
     ],
+    project_urls = dict(
+        Source="https://github.com/RKrahl/datacite",
+        Download=("https://github.com/RKrahl/datacite/releases/%s/" % release),
+    ),
     packages = ["datacite"],
     package_dir = {"": "src"},
     scripts = [
