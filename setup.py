@@ -13,14 +13,16 @@ from glob import glob
 from pathlib import Path
 import string
 try:
-    import setuptools_scm
-    version = setuptools_scm.get_version()
+    import gitprops
+    release = gitprops.get_last_release()
+    release = release and str(release)
+    version = str(gitprops.get_version())
 except (ImportError, LookupError):
     try:
-        from _meta import version
+        from _meta import release, version
     except ImportError:
         log.warn("warning: cannot determine version number")
-        version = "UNKNOWN"
+        release = version = "UNKNOWN"
 
 docstring = __doc__
 
@@ -30,6 +32,7 @@ class meta(setuptools.Command):
     description = "generate meta files"
     user_options = []
     meta_template = '''
+release = %(release)r
 version = %(version)r
 '''
 
@@ -43,6 +46,7 @@ version = %(version)r
         version = self.distribution.get_version()
         log.info("version: %s", version)
         values = {
+            'release': release,
             'version': version,
         }
         with Path("_meta.py").open("wt") as f:
@@ -108,6 +112,6 @@ setup(
         "src/scripts/datacite-validate-xml.py",
     ],
     python_requires = ">=3.11",
-    install_requires = ["keyring", "lxml", "requests"],
+    install_requires = ["setuptools", "keyring", "lxml", "requests"],
     cmdclass = dict(build_py=build_py, sdist=sdist, meta=meta),
 )
