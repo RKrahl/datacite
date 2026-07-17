@@ -4,10 +4,6 @@ Create and manage DOIs using the DataCite API
 This package provides a command line script to mint and manage
 `DataCite`_ DOIs using the `DataCite REST API`_.
 
-I wrote this package for my own use at `Helmholtz-Zentrum Berlin für
-Materialien und Energie`_.  The current development status is planning
-and exploring.  Nothing here is stable yet.
-
 
 System requirements
 -------------------
@@ -37,7 +33,7 @@ Optional library packages:
 Copyright and License
 ---------------------
 
-Copyright 2019–2022
+Copyright 2019–2026
 Helmholtz-Zentrum Berlin für Materialien und Energie GmbH
 
 Licensed under the `Apache License`_, Version 2.0 (the "License"); you
@@ -52,7 +48,6 @@ permissions and limitations under the License.
 
 .. _DataCite: https://datacite.org/
 .. _DataCite REST API: https://support.datacite.org/docs/api
-.. _Helmholtz-Zentrum Berlin für Materialien und Energie: https://www.helmholtz-berlin.de/
 .. _setuptools: https://github.com/pypa/setuptools/
 .. _keyring: https://pypi.org/project/keyring/
 .. _lxml: https://lxml.de/
