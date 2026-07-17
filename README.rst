@@ -4,10 +4,6 @@ Create and manage DOIs using the DataCite API
 This package provides a command line script to mint and manage
 `DataCite`_ DOIs using the `DataCite REST API`_.
 
-I wrote this package for my own use at `Helmholtz-Zentrum Berlin für
-Materialien und Energie`_.  The current development status is planning
-and exploring.  Nothing here is stable yet.
-
 
 System requirements
 -------------------
@@ -25,19 +21,19 @@ Required library packages:
 
 Optional library packages:
 
-+ `setuptools_scm`_
++ `git-props`_
 
-  The version number is managed using this package.  All source
-  distributions add a static text file with the version number and
-  fall back using that if `setuptools_scm` is not available.  So this
-  package is only needed to build out of the plain development source
-  tree as cloned from Git repository.
+  This package is used to extract some metadata such as the version
+  number out of git, the version control system.  All releases embed
+  that metadata in the distribution.  So this package is only needed
+  to build out of the plain development source tree as cloned from
+  GitHub, but not to build a release distribution.
 
 
 Copyright and License
 ---------------------
 
-Copyright 2019–2022
+Copyright 2019–2026
 Helmholtz-Zentrum Berlin für Materialien und Energie GmbH
 
 Licensed under the `Apache License`_, Version 2.0 (the "License"); you
@@ -52,10 +48,9 @@ permissions and limitations under the License.
 
 .. _DataCite: https://datacite.org/
 .. _DataCite REST API: https://support.datacite.org/docs/api
-.. _Helmholtz-Zentrum Berlin für Materialien und Energie: https://www.helmholtz-berlin.de/
 .. _setuptools: https://github.com/pypa/setuptools/
 .. _keyring: https://pypi.org/project/keyring/
 .. _lxml: https://lxml.de/
 .. _Requests: https://requests.readthedocs.io/
-.. _setuptools_scm: https://github.com/pypa/setuptools_scm/
+.. _git-props: https://github.com/RKrahl/git-props
 .. _Apache License: https://www.apache.org/licenses/LICENSE-2.0

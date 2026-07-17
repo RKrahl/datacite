@@ -33,6 +33,11 @@ Bug fixes and minor changes
 + `#10`_, `#11`_: `Doi.create()` should verify that the DOI attributes
   are set.
 
+Internal changes
+----------------
+
++ `#17`_: Review build tool chain.
+
 .. _#3: https://github.com/RKrahl/datacite/issues/3
 .. _#4: https://github.com/RKrahl/datacite/issues/4
 .. _#5: https://github.com/RKrahl/datacite/pull/5
@@ -47,6 +52,7 @@ Bug fixes and minor changes
 .. _#14: https://github.com/RKrahl/datacite/pull/14
 .. _#15: https://github.com/RKrahl/datacite/issues/15
 .. _#16: https://github.com/RKrahl/datacite/pull/16
+.. _#17: https://github.com/RKrahl/datacite/pull/17
 
 
 0.2 (2025-06-02)
