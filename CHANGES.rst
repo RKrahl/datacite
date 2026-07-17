@@ -13,6 +13,8 @@ New features
 Incompatible changes
 --------------------
 
++ `#13`_, `#14`_: Drop support for Python 3.10 and older.
+
 + `#6`_, `#7`_: Remove subcommand `bulk-create` from `datacite-doi`
   script.
 
@@ -33,6 +35,8 @@ Bug fixes and minor changes
 .. _#9: https://github.com/RKrahl/datacite/pull/9
 .. _#10: https://github.com/RKrahl/datacite/issues/10
 .. _#11: https://github.com/RKrahl/datacite/pull/11
+.. _#13: https://github.com/RKrahl/datacite/issues/13
+.. _#14: https://github.com/RKrahl/datacite/pull/14
 
 
 0.2 (2025-06-02)
