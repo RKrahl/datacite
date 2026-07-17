@@ -19,12 +19,9 @@ BuildRequires:	    %{python_module base >= 3.11}
 BuildRequires:	    %{python_module setuptools}
 BuildRequires:	    fdupes
 BuildRequires:	    python-rpm-macros
-BuildRequires:	    update-alternatives
 Requires:	    python-lxml
 Requires:	    python-requests
 Requires:	    python-keyring
-Requires(post):	    update-alternatives
-Requires(postun):   update-alternatives
 BuildArch:	    noarch
 %python_subpackages
 
@@ -45,23 +42,15 @@ $long_description
 for f in datacite-doi datacite-validate-xml
 do
     mv %{buildroot}%{_bindir}/$$f.py %{buildroot}%{_bindir}/$$f
-    %python_clone -a %{buildroot}%{_bindir}/$$f
 done
 %fdupes %{buildroot}%{python_sitelib}
-
-
-%post
-%python_install_alternative datacite-doi datacite-validate-xml
-
-%postun
-%python_uninstall_alternative datacite-doi datacite-validate-xml
 
 
 %files %{python_files}
 %license LICENSE.txt
 %doc README.rst CHANGES.rst
-%python_alternative %{_bindir}/datacite-doi
-%python_alternative %{_bindir}/datacite-validate-xml
+%{_bindir}/datacite-doi
+%{_bindir}/datacite-validate-xml
 %{python_sitelib}/*
 
 
